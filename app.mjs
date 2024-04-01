@@ -1,6 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import storeRoutes from './routes/store.mjs'
+
 const app = express();
+
 app.use(bodyParser.json());
 
 app.get('/', function(req,res){
@@ -8,6 +11,6 @@ app.get('/', function(req,res){
     res.send('hello world')
 })
 // app.use('/api')
-// app.use('/store')
+app.use('/store', storeRoutes)
 export default app;
  
