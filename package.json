@@ -1,0 +1,19 @@
+{
+  "name": "hair-haven-node",
+  "version": "1.0.0",
+  "description": "Hair haven node api ",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bryanvengwa/hair-haven-node-api.git"
+  },
+  "author": "Bryan Vengwa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bryanvengwa/hair-haven-node-api/issues"
+  },
+  "homepage": "https://github.com/bryanvengwa/hair-haven-node-api#readme"
+}
