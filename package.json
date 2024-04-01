@@ -2,10 +2,10 @@
   "name": "hair-haven-node",
   "version": "1.0.0",
   "description": "Hair haven node api ",
-  "main": "index.mjs",
+  "main": "server.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"nodemon index.mjs"
+    "start":"nodemon server.mjs"
   },
   "repository": {
     "type": "git",
