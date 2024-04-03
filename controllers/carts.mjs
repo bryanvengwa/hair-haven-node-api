@@ -32,7 +32,24 @@ export async function getCartById(request, response) {
         if (!cart) {
             return response.status(404).json({ error: 'Cart not found' });
         }
-        response.json(cart);
+        const formattedCart = {
+            id: cart.id,
+            items: cart.cartItems.map(cartItem => ({
+                id: cartItem.id,
+                product: {
+                    title: cartItem.Product.title,
+                    unit_price: cartItem.Product.unitPrice,
+                    id: cartItem.Product.id,
+                    image: cartItem.Product.image
+                },
+                quantity: cartItem.quantity,
+                total_price: cartItem.quantity * cartItem.Product.unitPrice
+            })),
+            total_price: cart.cartItems.reduce((total, cartItem) => total + (cartItem.quantity * cartItem.Product.unitPrice), 0)
+        };
+
+
+        response.json(formattedCart);
     } catch (error) {
         console.error('Error finding cart:', error);
         response.status(500).json({ error: error });
