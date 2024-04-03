@@ -21,7 +21,7 @@ export async function getCartById(request, response) {
     try {
         const { cartId } = request.params;
         console.log(cartId)
-        const cart = await models.Cart.findByPk(cartId);
+        const cart = await models.Cart.findByPk(cartId, {include: 'cartItems'});
         console.log(cart)
         if (!cart) {
             return response.status(404).json({ error: 'Cart not found' });
@@ -29,6 +29,6 @@ export async function getCartById(request, response) {
         response.json(cart);
     } catch (error) {
         console.error('Error finding cart:', error);
-        response.status(500).json({ error: 'Internal Server Error' });
+        response.status(500).json({ error: error });
     }
 }
