@@ -20,9 +20,15 @@ export async function createCart(request, response) {
 export async function getCartById(request, response) {
     try {
         const { cartId } = request.params;
-        console.log(cartId)
-        const cart = await models.Cart.findByPk(cartId,{ include: [{ model: models.CartItem, include: models.Product }] });
-        console.log(cart)
+        const cart = await models.Cart.findByPk(cartId, {
+            include: [
+                { 
+                    model: models.CartItem,
+                    as: 'cartItems', // Specify the alias for the association between CartItem and Cart
+                    include: models.Product 
+                }
+            ] 
+        });
         if (!cart) {
             return response.status(404).json({ error: 'Cart not found' });
         }
