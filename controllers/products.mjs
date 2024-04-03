@@ -12,6 +12,7 @@ export async function getProducts(request, response) {
 }
 
 export async function getProductsById(request, response) {
+
   
 
 
