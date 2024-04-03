@@ -21,7 +21,7 @@ export async function getCartById(request, response) {
     try {
         const { cartId } = request.params;
         console.log(cartId)
-        const cart = await models.Cart.findByPk(cartId, {include: 'cartItems'});
+        const cart = await models.Cart.findByPk(cartId,{ include: [{ model: models.CartItem, include: models.Product }] });
         console.log(cart)
         if (!cart) {
             return response.status(404).json({ error: 'Cart not found' });
