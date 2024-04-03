@@ -5,6 +5,7 @@ import * as cartController from '../controllers/carts.mjs';
 const router = express.Router();
 
 router.get('/products', productController.getProducts);
-router.get('/cart', cartController.createCart);
+router.get('/carts', cartController.createCart);
+router.get('/carts/:cartId', cartController.getCartById);
 
 export default router;
