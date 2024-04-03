@@ -74,15 +74,20 @@ export async function getCartItems(req, res) {
     }
 
     // Extract and format product information from the cart items
-    const productsInCart = cart.cartItems.map((cartItem) => ({
-      id: cartItem.Product.id,
-      title: cartItem.Product.title,
-      unit_price: cartItem.Product.unitPrice,
-      image: cartItem.Product.image,
+    const cartItems = cart.cartItems.map(cartItem => ({
+        id: cartItem.id,
+        product: {
+            id: cartItem.Product.id,
+            title: cartItem.Product.title,
+            unit_price: parseFloat(cartItem.Product.unitPrice),
+            image: cartItem.Product.image
+        },
+        quantity: cartItem.quantity,
+        total_price: parseFloat(cartItem.quantity) * parseFloat(cartItem.Product.unitPrice)
     }));
 
     // Send the formatted product information in the response
-    res.json(productsInCart);
+    res.json(cartItems);
   } catch (error) {
     console.error('Error fetching products in cart:', error);
     res.status(500).json({ error: 'Internal Server Error' });
