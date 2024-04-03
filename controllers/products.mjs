@@ -10,3 +10,9 @@ export async function getProducts(request, response) {
   }
   response.send(products)
 }
+
+export async function getProductsById(request, response) {
+  
+
+
+}
