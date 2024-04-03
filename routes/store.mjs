@@ -10,5 +10,6 @@ router.get('/carts', cartController.createCart);
 router.get('/carts/:cartId', cartController.getCartById);
 
 router.get('/carts/:cartId/items', cartController.getCartItems);
+router.get('/carts/:cartId/items/:itemId', cartController.getCartItemInstance);
 
 export default router;

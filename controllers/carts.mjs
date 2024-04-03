@@ -65,7 +65,9 @@ export async function getCartItems(req, res) {
 
     // Find the cart by its ID
     const cart = await models.Cart.findByPk(cartId, {
-      include: [{ model: models.CartItem, as: 'cartItems', include: models.Product }],
+      include: [
+        { model: models.CartItem, as: 'cartItems', include: models.Product },
+      ],
     });
 
     // If cart not found, return 404 error
@@ -74,22 +76,46 @@ export async function getCartItems(req, res) {
     }
 
     // Extract and format product information from the cart items
-    const cartItems = cart.cartItems.map(cartItem => ({
-        id: cartItem.id,
-        product: {
-            id: cartItem.Product.id,
-            title: cartItem.Product.title,
-            unit_price: parseFloat(cartItem.Product.unitPrice),
-            image: cartItem.Product.image
-        },
-        quantity: cartItem.quantity,
-        total_price: parseFloat(cartItem.quantity) * parseFloat(cartItem.Product.unitPrice)
+    const cartItems = cart.cartItems.map((cartItem) => ({
+      id: cartItem.id,
+      product: {
+        id: cartItem.Product.id,
+        title: cartItem.Product.title,
+        unit_price: parseFloat(cartItem.Product.unitPrice),
+        image: cartItem.Product.image,
+      },
+      quantity: cartItem.quantity,
+      total_price:
+        parseFloat(cartItem.quantity) * parseFloat(cartItem.Product.unitPrice),
     }));
 
     // Send the formatted product information in the response
     res.json(cartItems);
   } catch (error) {
     console.error('Error fetching products in cart:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+export async function getCartItemInstance(req, res) {
+  try {
+    // Extract cart ID and item ID from the URL parameters
+    const { cartId, itemId } = req.params;
+    console.log(cartId, itemId);
+    // Find the cart item by its ID and include the associated product
+    const cartItem = await models.CartItem.findByPk(itemId, {
+      include: models.Product,
+    });
+
+    // If cart item not found, return 404 error
+    if (!cartItem || cartItem.cartId !== cartId) {
+      return res.status(404).json({ error: 'Cart item not found' });
+    }
+
+    // Send the cart item information in the response
+    res.json(cartItem);
+  } catch (error) {
+    console.error('Error fetching cart item:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
