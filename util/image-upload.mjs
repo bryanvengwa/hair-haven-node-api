@@ -17,3 +17,12 @@ const fileFilter = (req, file, cb) => {
     cb(new Error('Invalid file type'), false);
   }
 };
+
+const uploads = multer({
+    storage,
+    limits:{
+        fileSize:1024 * 1024 * 15
+    },
+    fileFilter,
+    
+})
