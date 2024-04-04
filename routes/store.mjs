@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get('/products', productController.getProducts);
 // this method is temporary a get method for testing purposes
+
 router.get('/carts', cartController.createCart);
 router.get('/carts/:cartId', cartController.getCartById);
 
