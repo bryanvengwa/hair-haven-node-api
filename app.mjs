@@ -3,6 +3,12 @@ import bodyParser from 'body-parser';
 import storeRoutes from './routes/store.mjs';
 
 const app = express();
+const logRoute = (req, res, next) => {
+    const currentTime = new Date().toISOString();
+    console.log(`Visited route: ${req.method} ${req.path} at ${currentTime}`);
+    next(); // Call the next middleware function in the stack
+};
+
 
 app.use((request, response, next) => {
   response.setHeader('Access-Control-Allow-Origin', '*');
@@ -17,6 +23,8 @@ app.use((request, response, next) => {
   );
   next();
 });
+app.use(logRoute);
+
 
 app.use(bodyParser.json());
 
