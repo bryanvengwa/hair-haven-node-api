@@ -11,7 +11,7 @@ export async function getProducts(request, response) {
   // if (products.length < 0) {
   //   return response.send('no products');
   // }
-  response.send(products);
+  return response.status(200).send(products);
 }
 
 export async function getProductsById(request, response) {}
