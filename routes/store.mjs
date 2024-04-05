@@ -5,6 +5,7 @@ import * as cartController from '../controllers/carts.mjs';
 const router = express.Router();
 
 router.get('/products', productController.getProducts);
+router.post('/products', productController.createProduct)
 // this method is temporary a get method for testing purposes
 
 router.get('/carts', cartController.createCart);
