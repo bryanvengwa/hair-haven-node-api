@@ -4,9 +4,9 @@ export async function getProducts(request, response) {
   console.log('function ran');
   // response.send('products');
   const products = await models.Product.findAll();
-  const formattedProducts = products.map(product => {
+  const formattedProducts = products.map((product) => {
     product.image = `/uploads/${product.image}`;
-  })
+  });
   // console.log(products);
   // if (products.length < 0) {
   //   return response.send('no products');
@@ -19,7 +19,15 @@ export async function getProductsById(request, response) {}
 export async function createProduct(request, response) {
   const { title, description, product_type, inventory, slug, unit_price } =
     request.body;
-  console.log('REQUEST BODY : ', title, description, product_type, inventory, slug, unit_price)
+  console.log(
+    'REQUEST BODY : ',
+    title,
+    description,
+    product_type,
+    inventory,
+    slug,
+    unit_price
+  );
   if (request.file) {
     // If request.file exists, it means a file was uploaded
     // You can access the uploaded file details through request.file
