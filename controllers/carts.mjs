@@ -37,16 +37,16 @@ export async function getCartById(request, response) {
         id: cartItem.id,
         product: {
           title: cartItem.Product.title,
-          unit_price: cartItem.Product.unitPrice,
+          unit_price: cartItem.Product.unit_price,
           id: cartItem.Product.id,
           image: cartItem.Product.image,
         },
         quantity: cartItem.quantity,
-        total_price: cartItem.quantity * cartItem.Product.unitPrice,
+        total_price: cartItem.quantity * cartItem.Product.unit_price,
       })),
       total_price: cart.cartItems.reduce(
         (total, cartItem) =>
-          total + cartItem.quantity * cartItem.Product.unitPrice,
+          total + cartItem.quantity * cartItem.Product.unit_price,
         0
       ),
     };
@@ -81,12 +81,12 @@ export async function getCartItems(req, res) {
       product: {
         id: cartItem.Product.id,
         title: cartItem.Product.title,
-        unit_price: parseFloat(cartItem.Product.unitPrice),
+        unit_price: parseFloat(cartItem.Product.unit_price),
         image: cartItem.Product.image,
       },
       quantity: cartItem.quantity,
       total_price:
-        parseFloat(cartItem.quantity) * parseFloat(cartItem.Product.unitPrice),
+        parseFloat(cartItem.quantity) * parseFloat(cartItem.Product.unit_price),
     }));
 
     // Send the formatted product information in the response
