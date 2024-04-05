@@ -14,20 +14,27 @@ export async function getProducts(request, response) {
 export async function getProductsById(request, response) {}
 
 export async function createProduct(request, response) {
-  const { title, description, product_tye, inventory, slug, unit_price } =
+  const { title, description, product_type, inventory, slug, unit_price } =
     request.body;
-  console.log(request.body);
-  // if (request.file) {
-  //   // If request.file exists, it means a file was uploaded
-  //   // You can access the uploaded file details through request.file
-  //   const filename = request.file.filename;
-  //   // Now you can use the filename to store it in the database or perform other actions
-  //   // For example:
-  //   // models.Product.create({ title, description, product_tye, inventory, slug, unit_price, image: filename })
-  //   response.status(201).json({ message: 'Successfully uploaded', filename });
-  // } else {
-  //   // If no file was uploaded, you can handle it accordingly
-  //   response.status(400).json({ message: 'No file uploaded' });
-  // }
- return response.status(201).send({ message: 'Successfully uploaded'});
+  console.log('REQUEST BODY : ', title, description, product_type, inventory, slug, unit_price)
+  if (request.file) {
+    // If request.file exists, it means a file was uploaded
+    // You can access the uploaded file details through request.file
+    const filename = request.file.filename;
+    // Now you can use the filename to store it in the database or perform other actions
+    // For example:
+    const product = await models.Product.create({
+      title,
+      description,
+      product_type,
+      inventory,
+      slug,
+      unit_price,
+      image: filename,
+    });
+    response.status(201).json({ message: 'Successfully uploaded', filename });
+  } else {
+    // If no file was uploaded, you can handle it accordingly
+    response.status(400).json({ message: 'No file uploaded' });
+  }
 }
