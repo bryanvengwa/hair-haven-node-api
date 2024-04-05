@@ -4,6 +4,9 @@ export async function getProducts(request, response) {
   console.log('function ran');
   // response.send('products');
   const products = await models.Product.findAll();
+  const formattedProducts = products.map(product => {
+    product.image = `/uploads/${product.image}`;
+  })
   // console.log(products);
   // if (products.length < 0) {
   //   return response.send('no products');
