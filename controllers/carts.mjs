@@ -23,7 +23,7 @@ export async function getCartById(request, response) {
       include: [
         {
           model: models.CartItem,
-          as: 'cartItems', // Specify the alias for the association between CartItem and Cart
+          as: 'cartItems',
           include: models.Product,
         },
       ],
@@ -59,6 +59,8 @@ export async function getCartById(request, response) {
 }
 
 export async function getCartItems(req, res) {
+  console.log('running instance');
+
   try {
     // Extract cart ID from the URL parameters
     const { cartId } = req.params;
@@ -99,7 +101,6 @@ export async function getCartItems(req, res) {
 
 export async function getCartItemInstance(req, res) {
   try {
-    // Extract cart ID and item ID from the URL parameters
     const { cartId, itemId } = req.params;
     console.log(cartId, itemId);
     // Find the cart item by its ID and include the associated product
@@ -107,7 +108,6 @@ export async function getCartItemInstance(req, res) {
       include: models.Product,
     });
 
-    // If cart item not found, return 404 error
     if (!cartItem || cartItem.cartId !== cartId) {
       return res.status(404).json({ error: 'Cart item not found' });
     }
@@ -117,5 +117,13 @@ export async function getCartItemInstance(req, res) {
   } catch (error) {
     console.error('Error fetching cart item:', error);
     res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+export async function getCarts(request, response) {
+  const carts = await models.Cart.findAll();
+  if (carts.length < 1) {
+    response.status(404).json({ message: 'They are no carts' });
+  } else {
+    return response.send(carts);
   }
 }
