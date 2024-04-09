@@ -16,9 +16,9 @@ router.get('/carts', cartController.getCarts);
 
 // get cart by id
 router.get('/carts/:cartId', cartController.getCartById);
-
 router.post('/carts/:cartId/items', cartController.getCartItems);
+
 router.get('/carts/:cartId/items/:itemId', cartController.getCartItemInstance);
-router.patch('/carts/:cartId/items/:itemId', )
+router.patch('/carts/:cartId/items/:itemId', cartController.patchCartItem )
 
 export default router;

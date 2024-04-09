@@ -127,3 +127,12 @@ export async function getCarts(request, response) {
     return response.send(carts);
   }
 }
+export async function patchCartItem(request,response){
+  try {
+    const cartItem = await models.CartItem.findByPk(request.params.itemId);
+    response.status(200)
+  } catch (err) {
+    console.error(err);
+    response.status(500).json({ error: 'Internal server error' });
+  }
+}
