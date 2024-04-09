@@ -16,7 +16,8 @@ router.get('/carts', cartController.getCarts);
 
 // get cart by id
 router.get('/carts/:cartId', cartController.getCartById);
-router.post('/carts/:cartId/items', cartController.getCartItems);
+// add cart items
+router.post('/carts/:cartId/items', cartController.addCartItem);
 
 router.get('/carts/:cartId/items/:itemId', cartController.getCartItemInstance);
 router.patch('/carts/:cartId/items/:itemId', cartController.patchCartItem )

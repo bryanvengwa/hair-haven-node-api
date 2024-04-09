@@ -127,12 +127,54 @@ export async function getCarts(request, response) {
     return response.send(carts);
   }
 }
-export async function patchCartItem(request,response){
+export async function patchCartItem(request, response) {
+  console.log('updating cart by the patch ');
   try {
     const cartItem = await models.CartItem.findByPk(request.params.itemId);
     response.status(200).json(cartItem);
   } catch (err) {
     console.error(err);
     response.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+export async function deleteCartItem(request, response) {
+  const { itemId } = request.params;
+  const cartItem = await models.CartItem.findByPk(itemId);
+  if (cartItem) {
+    await models.CartItem.destroy({ where: { id: itemId } });
+    return response
+      .status(200)
+      .json({ message: 'Cart item deleted successfully' });
+  } else {
+    return res.status(404).json({ error: 'Cart item not found' });
+  }
+}
+
+// add cart items
+export async function addCartItem(request, response) {
+  try {
+    // Extract data from the request body
+    const cartId = request.params;
+    const {  productId, quantity } = request.body;
+
+    // Check if the cart exists
+    const cart = await models.Cart.findByPk(cartId);
+    if (!cart) {
+      return response.status(404).json({ error: 'Cart not found' });
+    }
+
+    // Create the cart item
+    const newCartItem = await models.CartItem.create({
+      cartId: cartId,
+      productId: productId,
+      quantity: quantity
+    });
+
+
+    return response.status(201).json(newCartItem);
+  } catch (error) {
+    console.error('Error adding cart item:', error);
+    return response.status(500).json({ error: 'Internal server error' });
   }
 }
