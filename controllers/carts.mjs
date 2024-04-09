@@ -130,7 +130,7 @@ export async function getCarts(request, response) {
 export async function patchCartItem(request,response){
   try {
     const cartItem = await models.CartItem.findByPk(request.params.itemId);
-    response.status(200)
+    response.status(200).json(cartItem);
   } catch (err) {
     console.error(err);
     response.status(500).json({ error: 'Internal server error' });

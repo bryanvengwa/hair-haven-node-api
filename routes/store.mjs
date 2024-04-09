@@ -21,4 +21,7 @@ router.post('/carts/:cartId/items', cartController.getCartItems);
 router.get('/carts/:cartId/items/:itemId', cartController.getCartItemInstance);
 router.patch('/carts/:cartId/items/:itemId', cartController.patchCartItem )
 
+
+// delete cart route
+router.delete('/carts/:cartId/items/:itemId')
 export default router;
