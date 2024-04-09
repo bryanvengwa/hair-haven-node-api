@@ -10,11 +10,13 @@ const colors = {
   blue: '\x1b[34m',
 };
 
+
 const logRoute = (req, res, next) => {
     const currentTime = new Date().toISOString();
     console.log(`${colors.blue}Visited route: ${req.method} ${req.path} at ${currentTime}${colors.reset}`);
     next(); // Call the next middleware function in the stack
 };
+
 
 app.use((request, response, next) => {
   response.setHeader('Access-Control-Allow-Origin', '*');
@@ -29,6 +31,8 @@ app.use((request, response, next) => {
   );
   next();
 });
+
+app.use('/uploads',express.static('uploads'))
 app.use(logRoute);
 
 app.use(bodyParser.json());
